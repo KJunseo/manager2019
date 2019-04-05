@@ -1,6 +1,9 @@
 #include "user.h"
 
 int load_file(LOGIN* list[], char* filename){
+#ifdef DEBUG_MODE
+	printf("DEBUG: load_file()\n");
+#endif
   int count=0;
   FILE *datafile = fopen(filename, "r");
   while(!feof(datafile)){
@@ -14,7 +17,10 @@ int load_file(LOGIN* list[], char* filename){
 }
 
 void join(LOGIN* list[], int count){
-  char id[20], pass[20];
+#ifdef DEBUG_MODE
+	printf("DEBUG: join()\n");
+#endif
+ char id[20], pass[20];
   while(1){
     printf("Enter new user id >> ");
     scanf("%s", id);
@@ -40,6 +46,9 @@ void join(LOGIN* list[], int count){
 }
 
 int login(LOGIN* list[], int count){
+#ifdef DEBUG_MODE
+	printf("DEBUG: login()\n");
+#endif
   char id[20], pass[20];
   printf("Enter user id >> ");
   scanf("%s", id);
@@ -70,11 +79,17 @@ int login(LOGIN* list[], int count){
 }
 
 void logout(int* is_login){
+#ifdef DEBUG_MODE
+	printf("DEBUG: logout()\n");
+#endif
   *is_login = 0;
   printf("Logout!!\n");
 }
 
 void save_file(LOGIN* list[], int count, char* filename){
+#ifdef DEBUG_MODE
+	printf("DEBUG: save_file()\n");
+#endif
   FILE *datafile = fopen(filename, "w");
   for(int i=0; i<count; i++){
     fprintf(datafile, "%s %s\n", list[i]->id, list[i]->password);
