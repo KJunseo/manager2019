@@ -1,18 +1,42 @@
 #include "user.h"
 
+void list(LOGIN* list[], int count){
+	printf("User list (id/password)\n");
+	for(int i=0;i<count;i++){
+		printf("[%d] %s / %s\n",i+1,list[i]->id, list[i]->password);
+	}
+
+}
+
 int load_file(LOGIN* list[], char* filename){
 #ifdef DEBUG_MODE
 	printf("DEBUG: load_file()\n");
 #endif
+  int make;
   int count=0;
   FILE *datafile = fopen(filename, "r");
+  if(datafile == NULL){
+	printf("%s file not exist! make anyway? (Yes 1, No 2) >> ", filename);
+	scanf("%d",&make);
+	if(make==1){
+		printf("> Welcome!!\n");
+		datafile = fopen(filename, "w");
+	}
+	else if(make==2){
+		printf("Ok bye~\n");
+		exit(0);
+	}
+  }
+ else {
   while(!feof(datafile)){
     list[count]=(LOGIN*)malloc(sizeof(LOGIN));
     fscanf(datafile,"%s %s",list[count]->id,list[count]->password);
     count++;
   }
-  printf("%d records read!\n",count);\
+  count--;
+  printf("%d records read!\n",count);
   fclose(datafile);
+}
   return count;
 }
 
