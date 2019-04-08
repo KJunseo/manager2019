@@ -1,6 +1,9 @@
 #include "user.h"
 
 void list(LOGIN* list[], int count){
+#ifdef DEBUG_MODE
+	printf("DEBUG: list()\n");
+#endif
 	printf("User list (id/password)\n");
 	for(int i=0;i<count;i++){
 		printf("[%d] %s / %s\n",i+1,list[i]->id, list[i]->password);
